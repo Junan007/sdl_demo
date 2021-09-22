@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "gameobject.hpp"
 #include "player.hpp"
 
@@ -23,8 +24,12 @@ private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
 
-    GameObject m_go;
-    Player m_player;
+    GameObject* m_player1;
+    GameObject* m_enemy1;
+    GameObject* m_enemy2;
+    GameObject* m_enemy3;
+
+    std::vector<GameObject*> m_gameObjects;
 };
 
 #endif
