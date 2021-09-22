@@ -2,6 +2,8 @@
 #define _GAME_H_
 
 #include <SDL2/SDL.h>
+#include "gameobject.hpp"
+#include "player.hpp"
 
 class Game {
 public:
@@ -21,9 +23,8 @@ private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
 
-    SDL_Texture* m_pTexture;
-    SDL_Rect m_sourceRectangle;
-    SDL_Rect m_destinationRectangle;
+    GameObject m_go;
+    Player m_player;
 };
 
 #endif

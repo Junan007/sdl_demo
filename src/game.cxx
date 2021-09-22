@@ -1,5 +1,7 @@
 #include "game.hpp"
 #include <iostream>
+#include <SDL2/SDL_image.h>
+#include "texturemanager.hpp"
 
 Game::Game() 
 {
@@ -25,17 +27,13 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
             std::cout << "window creation success\n";
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0) {
-                SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
-
-                SDL_Surface* pTmpSurface = SDL_LoadBMP("./assets/rider.bmp");
-                m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTmpSurface);
-                SDL_FreeSurface(pTmpSurface);
-
-                SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
-                m_destinationRectangle.x = m_sourceRectangle.x = 0;
-                m_destinationRectangle.y = m_sourceRectangle.y = 0;
-                m_destinationRectangle.w = m_sourceRectangle.w;
-                m_destinationRectangle.h = m_sourceRectangle.h;
+                SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+                if (!TheTextureManager::Instance()->load("./assets/animate-alpha.png", "animate", m_pRenderer)) {
+                    return false;
+                }
+                
+                m_go.load(100, 100, 128, 82, "animate");
+                m_player.load(300, 300, 128, 82, "animate");
             } else {
                 std::cout << "renderer init fail\n";
                 return false;
@@ -56,16 +54,16 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::render()
 {
-    SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
     SDL_RenderClear(m_pRenderer);
-
-    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    m_go.draw(m_pRenderer);
+    m_player.draw(m_pRenderer);    
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update()
 {
-
+    m_go.update();
+    m_player.update();
 }
 
 void Game::handleEvents()

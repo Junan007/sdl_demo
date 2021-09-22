@@ -16,7 +16,7 @@ file(GLOB SRC_LIST
     ./*.cxx
     )
 
-set(LINK_LIBRARIES SDL2 SDL2main)
+set(LINK_LIBRARIES SDL2 SDL2main SDL2_Image)
 
 add_executable(demo ${SRC_LIST})
 target_link_libraries(demo ${LINK_LIBRARIES})
