@@ -1,8 +1,9 @@
 #include "game.hpp"
 #include <iostream>
 #include <SDL2/SDL_image.h>
-#include "texturemanager.hpp"
 
+#include "inputhandler.hpp"
+#include "texturemanager.hpp"
 #include "enemy.hpp"
 #include "player.hpp"
 
@@ -26,6 +27,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         if (fullscreen) {
             flags = SDL_WINDOW_FULLSCREEN;
         }
+
+        TheInputHandler::Instance()->initialiseJoysticks();
 
         m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
         if (m_pWindow != 0) {
@@ -77,23 +80,20 @@ void Game::update()
 
 void Game::handleEvents()
 {
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch (event.type)
-    {
-    case SDL_QUIT:
-        m_bRunning = false;
-        break;
-    
-    default:
-        break;
-    }
+    TheInputHandler::Instance()->update();
 }
 
 void Game::clean()
 {
     std::cout << "cleaning game\n";
+
+    TheInputHandler::Instance()->clean();
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
+}
+
+void Game::quit()
+{
+    m_bRunning = false;
 }
