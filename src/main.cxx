@@ -2,20 +2,23 @@
 
 int main(int argc, char* argv[])
 {
-    Game* game = new Game();
-    if (game->init("Chapter 1: Settting up SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, false))
+    if (TheGame::Instance()->init("Chapter 1: Settting up SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, false))
     {
-        while (game->running()) 
+        std::cout << "game init success!\n";
+        while (TheGame::Instance()->running()) 
         {
-            game->handleEvents();
-            game->update();
-            game->render();
+            TheGame::Instance()->handleEvents();
+            TheGame::Instance()->update();
+            TheGame::Instance()->render();
 
-            SDL_Delay(100);
+            SDL_Delay(10);
         }
+    } else {
+        std::cout << "game init failure - " << SDL_GetError() << "\n";
+        return -1;
     }
 
-    game->clean();
-    delete game;
+    std::cout << "game closing...\n";
+    TheGame::Instance()->clean();
     return 0;
 }
