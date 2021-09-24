@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include "gameobject.hpp"
+#include "gamestatemachine.hpp"
 
 class Game {
 public:
@@ -32,6 +33,8 @@ public:
 
         return s_pInstance;
     }
+
+    GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 private:
     Game();
 
@@ -42,6 +45,8 @@ private:
 
     static Game* s_pInstance;
     std::vector<GameObject*> m_gameObjects;
+
+    GameStateMachine* m_pGameStateMachine;
 };
 
 typedef Game TheGame;

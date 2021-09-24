@@ -32,7 +32,7 @@ void Player::clean()
 
 void Player::handleInput()
 {
-    if (TheInputHandler::Instance()->joysticksInitialised())
+    /*if (TheInputHandler::Instance()->joysticksInitialised())
     {
         if (TheInputHandler::Instance()->xvalue(0, 1) > 0 ||
             TheInputHandler::Instance()->xvalue(0, 1) < 0)
@@ -57,9 +57,38 @@ void Player::handleInput()
                 m_velocity.setY(1 * TheInputHandler::Instance()->yvalue(0, 2));
             }
         
-        if (TheInputHandler::Instance() ->getButtonState(0, 3))
+        if (TheInputHandler::Instance()->getButtonState(0, 3))
         {
             m_velocity.setX(1);
-        }
+        }        
     }
+
+    if (TheInputHandler::Instance()->getMouseButtonState(LEFT))
+    {
+        m_velocity.setX(1);
+    }
+
+    Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
+    m_velocity = (*vec - m_position) / 100;
+
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
+    {
+        m_velocity.setX(2);
+    }
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
+    {
+        m_velocity.setX(-2);
+    }
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
+    {
+        m_velocity.setY(2);
+    }
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN))
+    {
+        m_velocity.setY(-2);
+    }*/
+
+    Vector2D* target = TheInputHandler::Instance()->getMousePosition();
+    m_velocity = *target - m_position;
+    m_velocity /= 50;
 }
