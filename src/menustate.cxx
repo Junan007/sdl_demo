@@ -38,10 +38,12 @@ bool MenuState::onEnter()
     }
 
     GameObject* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "playbutton"), s_menuToPlay);
-    GameObject* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "exitbutton"), s_exitFromMenu);
+    GameObject* button2 = new MenuButton(new LoaderParams(100, 200, 400, 100, "exitbutton"), s_exitFromMenu);
 
     m_gameObjects.push_back(button1);
     m_gameObjects.push_back(button2);
+
+    std::cout << "MenuState onEnter finished.\n";
 
     return true;
 }
@@ -64,12 +66,12 @@ bool MenuState::onExit()
 
 void MenuState::s_menuToPlay()
 {
-    TheGame::Instance()->getStateMachine()->changeState(new PlayState());
     std::cout << "Play button clicked\n";
+    TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }
 
 void MenuState::s_exitFromMenu()
 {
-    TheGame::Instance()->quit();
     std::cout << "Exit button clicked\n";
+    TheGame::Instance()->quit();
 }

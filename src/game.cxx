@@ -23,9 +23,6 @@ Game::~Game()
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
-    m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
-
     if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
     {
         int flags = SDL_WINDOW_SHOWN;
@@ -41,11 +38,6 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0) {
                 SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-                if (!TheTextureManager::Instance()->load("./assets/animate-alpha.png", "animate", m_pRenderer)) {
-                    return false;
-                }
-                m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
-                m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));       
             } else {
                 std::cout << "renderer init fail\n";
                 return false;
@@ -61,6 +53,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     std::cout << "init success\n";
     m_bRunning = true;
+
+    m_pGameStateMachine = new GameStateMachine();
+    m_pGameStateMachine->changeState(new MenuState());
 
     return true;
 }

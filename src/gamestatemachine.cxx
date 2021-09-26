@@ -20,7 +20,6 @@ void GameStateMachine::changeState(GameState* pState)
             m_gameStates.pop_back();
         }
     }
-
     m_gameStates.push_back(pState);
     m_gameStates.back()->onEnter();
 }
@@ -40,7 +39,12 @@ void GameStateMachine::update()
 {
     if (!m_gameStates.empty())
     {
-        m_gameStates.back()->update();
+        GameState* pState = m_gameStates.back();
+        if (pState)
+        {
+            // printf("State: %s\n", pState->getStateID().c_str());
+            pState->update();
+        }
     }
 }
 

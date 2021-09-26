@@ -11,6 +11,11 @@ InputHandler::InputHandler()
         m_mouseButtonStates.push_back(false);
     }
     m_mousePosition = new Vector2D(0, 0);
+
+    int numKey = 0;
+    SDL_GetKeyboardState(&numKey);
+    m_keystate = new Uint8[numKey];
+    printf("numKey: %d\n", numKey);
 }
 
 void InputHandler::initialiseJoysticks()
