@@ -22,6 +22,8 @@ protected:
     int m_currentRow;
     int m_currentFrame;
     std::string m_textureID;
+
+    int m_numFrames;
 };
 
 #endif
