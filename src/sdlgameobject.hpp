@@ -7,7 +7,7 @@
 class SDLGameObject : public GameObject
 {
 public:
-    SDLGameObject(const LoaderParams* pParams);
+    SDLGameObject();
 
     virtual void draw();
     virtual void update();
@@ -16,6 +16,8 @@ public:
     Vector2D& getPosition() { return m_position;}
     int getWidth() { return m_width; }
     int getHeight() { return m_height; }
+
+    void load(const LoaderParams* pParams);
 protected:
     Vector2D m_position;
     Vector2D m_velocity;

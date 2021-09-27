@@ -3,10 +3,14 @@
 #include <SDL2/SDL.h>
 #include "inputhandler.hpp"
 
-Player::Player(const LoaderParams* pParams)
-: SDLGameObject(pParams)
+Player::Player()
 {
     
+}
+
+void Player::load(const LoaderParams* pParams)
+{
+    SDLGameObject::load(pParams);
 }
 
 void Player::draw()

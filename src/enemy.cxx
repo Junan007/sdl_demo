@@ -2,13 +2,15 @@
 
 #include <SDL2/SDL.h>
 
-Enemy::Enemy(const LoaderParams* pParams)
-: SDLGameObject(pParams)
+Enemy::Enemy()
 {
-    m_numFrames = 5;
-    
-    m_velocity.setY(2);
-    m_velocity.setX(0.001);    
+    // m_velocity.setY(2);
+    // m_velocity.setX(0.001);    
+}
+
+void Enemy::load(const LoaderParams* pParams)
+{
+    SDLGameObject::load(pParams);
 }
 
 void Enemy::draw()

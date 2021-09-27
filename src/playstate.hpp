@@ -3,8 +3,7 @@
 
 #include <vector>
 #include "gamestate.hpp"
-
-class GameObject;
+#include "sdlgameobject.hpp"
 
 class PlayState : public GameState
 {
