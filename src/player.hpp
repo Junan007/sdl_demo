@@ -21,7 +21,7 @@ private:
 class PlayerCreator : public BaseCreator
 {
 public:
-    GameObject* createGameObject()
+    virtual GameObject* createGameObject() const
     {
         return new Player();
     }

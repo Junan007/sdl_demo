@@ -7,7 +7,10 @@
 #include "enemy.hpp"
 #include "player.hpp"
 #include "menustate.hpp"
+#include "mainmenustate.hpp"
 #include "playstate.hpp"
+#include "menubutton.hpp"
+#include "animatedgraphic.hpp"
 
 Game* Game::s_pInstance = 0;
 
@@ -31,6 +34,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         }
 
         TheInputHandler::Instance()->initialiseJoysticks();
+        TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+        TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+        TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
+        TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
 
         m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
         if (m_pWindow != 0) {
@@ -55,7 +62,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     m_bRunning = true;
 
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    m_pGameStateMachine->changeState(new MainMenuState());
 
     return true;
 }

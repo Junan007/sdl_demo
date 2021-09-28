@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<STATES>
+
+<!-- The Play State -->
+<PLAY>
+    <TEXTURES>
+        <texture filename="./assets/arrow.png" ID="arrow"/>
+        <texture filename="./assets/helicopter2.png" ID="helicopter2"/>
+    </TEXTURES>
+
+    <OBJECTS>
+        <object type="Player" x="100" y="100" width="128" height="55" textureID="arrow" numFrames="0"/>
+        <object type="Enemy" x="100" y="100" width="128" height="55" textureID="helicopter2" numFrames="0"/>
+    </OBJECTS>
+</PLAY>
+
+</STATES>

@@ -14,6 +14,9 @@ public:
     virtual void clean();
 
     virtual void load(const LoaderParams* pParams);
+
+    void setCallback(void(*callback)()) { m_callback = callback; }
+    int getCallbackID() { return m_callbackID; }
 private:
     enum button_state
     {
@@ -24,15 +27,17 @@ private:
 
     void (*m_callback)();
     bool m_bReleased;
+
+    int m_callbackID;
 };
 
 
 class MenuButtonCreator : public BaseCreator
 {
 public:
-    GameObject* createGameObject()
+    virtual GameObject* createGameObject() const
     {
-        return dynamic_cast<GameObject*>(MenuButton());
+        return dynamic_cast<GameObject*>(new MenuButton());
     }
 };
 

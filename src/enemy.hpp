@@ -19,7 +19,7 @@ public:
 class EnemyCreator : public BaseCreator
 {
 public:
-    GameObject* createGameObject()
+    virtual GameObject* createGameObject() const
     {
         return new Enemy();
     }

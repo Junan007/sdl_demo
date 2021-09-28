@@ -56,4 +56,5 @@ private:
     std::map<std::string, BaseCreator*> m_creators;
 };
 
+typedef GameObjectFactory TheGameObjectFactory;
 #endif

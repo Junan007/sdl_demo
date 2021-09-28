@@ -14,6 +14,7 @@ link_directories(
 
 file(GLOB SRC_LIST
     ./*.cxx
+    ./*.cpp
     )
 
 set(LINK_LIBRARIES SDL2 SDL2main SDL2_Image)

@@ -21,9 +21,9 @@ private:
 class AnimatedGraphicCreator : public BaseCreator
 {
 public:
-    GameObject* createGameObject()
+    virtual GameObject* createGameObject() const
     {
-        return AnimatedGraphic();
+        return dynamic_cast<GameObject*>(new AnimatedGraphic());
     }
 };
 
