@@ -31,12 +31,14 @@ bool MainMenuState::onEnter()
 
     StateParser stateParser;
     stateParser.parseState("menu.xml", s_menuID, &m_gameObjects, &m_textureIDList);
+    std::cout << "xxxx\n";
 
     m_callbacks.push_back(0);
     m_callbacks.push_back(s_menuToPlay);
     m_callbacks.push_back(s_exitFromMenu);
 
     setCallbacks(m_callbacks);
+    std::cout << "MainMenuState::onEnter finished.\n";
     return true;
 }
 

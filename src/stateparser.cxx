@@ -5,6 +5,7 @@
 
 bool StateParser::parseState(const char* stateFile, std::string stateID, std::vector<GameObject*> *pObjects, std::vector<std::string> *pTextureIDs)
 {
+    std::cout << "parseState: " << stateFile << ", " << stateID.c_str() << "\n";
     TiXmlDocument xmlDoc;
     if (!xmlDoc.LoadFile(stateFile))
     {
@@ -23,6 +24,8 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
         }
     }
 
+    // std::cout << "state root: " << pStateRoot << "\n";
+
     TiXmlElement* pTextureRoot = 0;
     for (TiXmlElement* e = pStateRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
@@ -32,6 +35,7 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
             break;
         }
     }
+    // std::cout << "texture root: " << pTextureRoot << "\n";
 
     parseTextures(pTextureRoot, pTextureIDs);
 
@@ -45,13 +49,13 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
         }
     }
 
-    parseObjects(pStateRoot, pObjects);
+    parseObjects(pObjectRoot, pObjects);
     return true;
 }
 
-void StateParser::parseObjects(TiXmlElement* pStateRoot, std::vector<GameObject*> *pObjects)
+void StateParser::parseObjects(TiXmlElement* pObjectRoot, std::vector<GameObject*> *pObjects)
 {
-    for (TiXmlElement* e = pStateRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    for (TiXmlElement* e = pObjectRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
         int x, y, width, height, numFrames, callbackID, animSpeed;
         std::string textureID;
