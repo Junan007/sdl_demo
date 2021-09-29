@@ -33,6 +33,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
             flags = SDL_WINDOW_FULLSCREEN;
         }
 
+        m_gameWidth = width;
+        m_gameHeight = height;
+
         TheInputHandler::Instance()->initialiseJoysticks();
         TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
         TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());

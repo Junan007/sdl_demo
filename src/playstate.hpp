@@ -4,6 +4,7 @@
 #include <vector>
 #include "gamestate.hpp"
 #include "sdlgameobject.hpp"
+#include "level.hpp"
 
 class PlayState : public GameState
 {
@@ -22,6 +23,8 @@ private:
 private:
     static const std::string s_playID;
     std::vector<GameObject*> m_gameObjects;
+    
+    Level* m_pLevel;
 };
 
 #endif

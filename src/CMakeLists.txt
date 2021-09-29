@@ -17,7 +17,7 @@ file(GLOB SRC_LIST
     ./tinyxml/*.cpp
     )
 
-set(LINK_LIBRARIES SDL2 SDL2main SDL2_Image)
+set(LINK_LIBRARIES SDL2 SDL2main SDL2_Image z)
 
 add_executable(demo ${SRC_LIST})
 target_link_libraries(demo ${LINK_LIBRARIES})
