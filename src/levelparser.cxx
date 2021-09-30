@@ -4,6 +4,8 @@
 #include "zlib.h"
 #include "base64.hpp"
 #include "tilelayer.hpp"
+#include "objectlayer.hpp"
+#include "gameobjectfactory.hpp"
 
 Level* LevelParser::parseLevel(const char* levelFile)
 {
@@ -27,9 +29,22 @@ Level* LevelParser::parseLevel(const char* levelFile)
 
     for (TiXmlElement* e = pRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
-        if (e->Value() == std::string("layer")) 
+        if (e->Value() == std::string("properties"))
         {
-            parseTileLayer(e, pLevel->getLayers(), pLevel->getTilesets());
+            parseTextures(e);
+        }
+    }
+
+    for (TiXmlElement* e = pRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    {
+        if (e->Value() == std::string("objectgroup") || e->Value() == std::string("layer"))
+        {
+            if (e->FirstChildElement()->Value() == std::string("object"))
+            {
+                parseObjectLayer(e, pLevel->getLayers());
+            } else if (e->FirstChildElement()->Value() == std::string("data")) {
+                parseTileLayer(e, pLevel->getLayers(), pLevel->getTilesets());
+            }
         }
     }
 
@@ -101,4 +116,69 @@ void LevelParser::parseTileLayer(TiXmlElement* pTileElement, std::vector<Layer*>
 
     pTileLayer->setTileIDs(data);
     pLayers->push_back(pTileLayer);
+}
+
+void LevelParser::parseTextures(TiXmlElement* pTextureRoot)
+{
+    for (TiXmlElement* e = pTextureRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    {
+        std::string name = e->Attribute("name");
+        std::string textureFile = e->Attribute("value");
+
+        TheTextureManager::Instance()->load(textureFile, name, TheGame::Instance()->getRenderer());
+    }
+}
+
+void LevelParser::parseObjectLayer(TiXmlElement* pObjectElement, std::vector<Layer*> *pLayers)
+{
+    ObjectLayer* pObjectLayer = new ObjectLayer();
+
+    std::cout << pObjectElement->FirstChildElement()->Value();
+
+    for (TiXmlElement* e = pObjectElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    {
+        std::cout << e->Value();
+        if (e->Value() == std::string("object"))
+        {
+            int x, y, width, height, numFrames, callbackID, animSpeed;
+            std::string textureID;
+
+            e->Attribute("x", &x);
+            e->Attribute("y", &y);
+
+            GameObject* pGameObject = TheGameObjectFactory::Instance()->create(e->Attribute("type"));
+
+            for (TiXmlElement* properties = e->FirstChildElement(); properties != NULL; properties = properties->NextSiblingElement())
+            {
+                if (properties->Value() == std::string("properties"))
+                {
+                    for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+                    {
+                        if (property->Value() == std::string("property"))
+                        {
+                            std::string name = property->Attribute("name");
+                            if (name == std::string("numFrames"))
+                            {
+                                property->Attribute("value", &numFrames);
+                            } else if (name == std::string("textureID")) {
+                                textureID = property->Attribute("value");  
+                            } else if (name == std::string("textureWidth")) {
+                                property->Attribute("value", &width);
+                            } else if (name == std::string("textHeight")) {
+                                property->Attribute("value", &height);
+                            } else if (name == std::string("callbackID")) {
+                                property->Attribute("value", &callbackID);
+                            } else if (name == std::string("animSpeed")) {
+                                property->Attribute("value", &animSpeed);
+                            }
+                        }
+                    }
+                }
+            }
+
+            pGameObject->load(new LoaderParams(x, y, width, height, textureID, numFrames, callbackID, animSpeed));
+            pObjectLayer->getGameObjects()->push_back(pGameObject);
+        }
+    }
+    pLayers->push_back(pObjectLayer);
 }
