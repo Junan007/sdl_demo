@@ -5,7 +5,7 @@
 
 class GameObject;
 
-class  GameOverState: public MenuState
+class GameOverState : public MenuState
 {
 public:
     virtual void update();
@@ -15,13 +15,14 @@ public:
     virtual bool onExit();
 
     virtual std::string getStateID() const { return s_gameOverID; }
-    virtual void setCallbacks(const std::vector<Callback>& callbacks);
+    virtual void setCallbacks(const std::vector<Callback> &callbacks);
+
 private:
     static void s_gameOverToMain();
     static void s_restartPlay();
-     
+
     static const std::string s_gameOverID;
-    std::vector<GameObject*> m_gameObjects;
+    std::vector<GameObject *> m_gameObjects;
 };
 
 #endif

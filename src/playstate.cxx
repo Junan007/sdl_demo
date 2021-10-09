@@ -31,7 +31,6 @@ void PlayState::update()
     // {
     //     TheGame::Instance()->getStateMachine()->pushState(new GameOverState());
     // }
-
 }
 
 void PlayState::render()
@@ -51,7 +50,7 @@ bool PlayState::onEnter()
 
     // StateParser stateParser;
     // stateParser.parseState("play.xml", s_playID, &m_gameObjects, &m_textureIDList);
-    
+
     printf("PlayState::OnEnter finished.\n");
     return true;
 }
@@ -73,9 +72,9 @@ bool PlayState::onExit()
     return true;
 }
 
-bool PlayState::checkCollision(SDLGameObject* p1, SDLGameObject* p2)
+bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
 {
-    // TODO: 
+    // TODO:
     return false;
 
     int leftA, leftB;
@@ -93,10 +92,14 @@ bool PlayState::checkCollision(SDLGameObject* p1, SDLGameObject* p2)
     topB = p2->getPosition().getY();
     bottomB = p2->getPosition().getY() + p2->getHeight();
 
-    if (bottomA <= topB) return false;
-    if (topA >= bottomB) return false;
-    if (rightA < leftB) return false;
-    if (leftA >= rightB) return false;
+    if (bottomA <= topB)
+        return false;
+    if (topA >= bottomB)
+        return false;
+    if (rightA < leftB)
+        return false;
+    if (leftA >= rightB)
+        return false;
 
     return true;
 }

@@ -13,10 +13,11 @@ public:
     virtual void update();
     virtual void clean();
 
-    virtual void load(const LoaderParams* pParams);
+    virtual void load(const LoaderParams *pParams);
 
-    void setCallback(void(*callback)()) { m_callback = callback; }
+    void setCallback(void (*callback)()) { m_callback = callback; }
     int getCallbackID() { return m_callbackID; }
+
 private:
     enum button_state
     {
@@ -31,13 +32,12 @@ private:
     int m_callbackID;
 };
 
-
 class MenuButtonCreator : public BaseCreator
 {
 public:
-    virtual GameObject* createGameObject() const
+    virtual GameObject *createGameObject() const
     {
-        return dynamic_cast<GameObject*>(new MenuButton());
+        return dynamic_cast<GameObject *>(new MenuButton());
     }
 };
 

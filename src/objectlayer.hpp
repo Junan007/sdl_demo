@@ -10,12 +10,13 @@ public:
     virtual void update();
     virtual void render();
 
-    std::vector<GameObject*>* getGameObjects()
+    std::vector<GameObject *> *getGameObjects()
     {
         return &m_gameObjects;
     }
+
 private:
-    std::vector<GameObject*> m_gameObjects;
+    std::vector<GameObject *> m_gameObjects;
 };
 
 #endif

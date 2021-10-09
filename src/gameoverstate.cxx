@@ -19,15 +19,12 @@ void GameOverState::s_restartPlay()
     TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }
 
-
 void GameOverState::update()
 {
-
 }
 
 void GameOverState::render()
 {
-
 }
 
 bool GameOverState::onEnter()
@@ -40,7 +37,7 @@ bool GameOverState::onEnter()
     m_callbacks.push_back(s_gameOverToMain);
     m_callbacks.push_back(s_restartPlay);
     setCallbacks(m_callbacks);
-    
+
     return true;
 }
 
@@ -60,13 +57,13 @@ bool GameOverState::onExit()
     return true;
 }
 
-void GameOverState::setCallbacks(const std::vector<Callback>& callbacks)
+void GameOverState::setCallbacks(const std::vector<Callback> &callbacks)
 {
-    for (int i = 0 ;i < m_gameObjects.size(); i++)
+    for (int i = 0; i < m_gameObjects.size(); i++)
     {
-        if (dynamic_cast<MenuButton*>(m_gameObjects[i]))
+        if (dynamic_cast<MenuButton *>(m_gameObjects[i]))
         {
-            MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+            MenuButton *pButton = dynamic_cast<MenuButton *>(m_gameObjects[i]);
             pButton->setCallback(callbacks[pButton->getCallbackID()]);
         }
     }

@@ -6,11 +6,12 @@
 #include "gameobject.hpp"
 #include "gamestatemachine.hpp"
 
-class Game {
+class Game
+{
 public:
     ~Game();
 
-    bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+    bool init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
 
     void render();
     void update();
@@ -21,9 +22,9 @@ public:
 
     bool running() { return m_bRunning; }
 
-    SDL_Renderer* getRenderer() const { return m_pRenderer; }
+    SDL_Renderer *getRenderer() const { return m_pRenderer; }
 
-    static Game* Instance()
+    static Game *Instance()
     {
         if (s_pInstance == 0)
         {
@@ -34,27 +35,30 @@ public:
         return s_pInstance;
     }
 
-    GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
+    GameStateMachine *getStateMachine() { return m_pGameStateMachine; }
 
-    int getGameWidth() const {
+    int getGameWidth() const
+    {
         return m_gameWidth;
     }
 
-    int getGameHeight() const {
+    int getGameHeight() const
+    {
         return m_gameHeight;
     }
+
 private:
     Game();
 
 private:
     bool m_bRunning;
-    SDL_Window* m_pWindow;
-    SDL_Renderer* m_pRenderer;
+    SDL_Window *m_pWindow;
+    SDL_Renderer *m_pRenderer;
 
-    static Game* s_pInstance;
-    std::vector<GameObject*> m_gameObjects;
+    static Game *s_pInstance;
+    std::vector<GameObject *> m_gameObjects;
 
-    GameStateMachine* m_pGameStateMachine;
+    GameStateMachine *m_pGameStateMachine;
 
     int m_gameWidth;
     int m_gameHeight;

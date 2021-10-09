@@ -3,7 +3,7 @@
 #include "game.hpp"
 #include "gameobjectfactory.hpp"
 
-bool StateParser::parseState(const char* stateFile, std::string stateID, std::vector<GameObject*> *pObjects, std::vector<std::string> *pTextureIDs)
+bool StateParser::parseState(const char *stateFile, std::string stateID, std::vector<GameObject *> *pObjects, std::vector<std::string> *pTextureIDs)
 {
     std::cout << "parseState: " << stateFile << ", " << stateID.c_str() << "\n";
     TiXmlDocument xmlDoc;
@@ -13,12 +13,13 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
         return false;
     }
 
-    TiXmlElement* pRoot = xmlDoc.RootElement();
-    TiXmlElement* pStateRoot = 0;
+    TiXmlElement *pRoot = xmlDoc.RootElement();
+    TiXmlElement *pStateRoot = 0;
 
-    for (TiXmlElement* e = pRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    for (TiXmlElement *e = pRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
-        if (e->Value() == stateID) {
+        if (e->Value() == stateID)
+        {
             pStateRoot = e;
             break;
         }
@@ -26,8 +27,8 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
 
     // std::cout << "state root: " << pStateRoot << "\n";
 
-    TiXmlElement* pTextureRoot = 0;
-    for (TiXmlElement* e = pStateRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    TiXmlElement *pTextureRoot = 0;
+    for (TiXmlElement *e = pStateRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
         if (e->Value() == std::string("TEXTURES"))
         {
@@ -39,8 +40,8 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
 
     parseTextures(pTextureRoot, pTextureIDs);
 
-    TiXmlElement* pObjectRoot = 0;
-    for (TiXmlElement* e = pStateRoot->FirstChildElement(); e!= NULL; e = e->NextSiblingElement())
+    TiXmlElement *pObjectRoot = 0;
+    for (TiXmlElement *e = pStateRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
         if (e->Value() == std::string("OBJECTS"))
         {
@@ -53,9 +54,9 @@ bool StateParser::parseState(const char* stateFile, std::string stateID, std::ve
     return true;
 }
 
-void StateParser::parseObjects(TiXmlElement* pObjectRoot, std::vector<GameObject*> *pObjects)
+void StateParser::parseObjects(TiXmlElement *pObjectRoot, std::vector<GameObject *> *pObjects)
 {
-    for (TiXmlElement* e = pObjectRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    for (TiXmlElement *e = pObjectRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
         int x, y, width, height, numFrames, callbackID, animSpeed;
         std::string textureID;
@@ -69,15 +70,15 @@ void StateParser::parseObjects(TiXmlElement* pObjectRoot, std::vector<GameObject
         e->Attribute("animSpeed", &animSpeed);
         textureID = e->Attribute("textureID");
 
-        GameObject* pGameObject = TheGameObjectFactory::Instance()->create(e->Attribute("type"));
+        GameObject *pGameObject = TheGameObjectFactory::Instance()->create(e->Attribute("type"));
         pGameObject->load(new LoaderParams(x, y, width, height, textureID, callbackID, animSpeed));
         pObjects->push_back(pGameObject);
     }
 }
 
-void StateParser::parseTextures(TiXmlElement* pTextureRoot, std::vector<std::string> *pTextureIDs)
+void StateParser::parseTextures(TiXmlElement *pTextureRoot, std::vector<std::string> *pTextureIDs)
 {
-    for (TiXmlElement* e = pTextureRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+    for (TiXmlElement *e = pTextureRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
         std::string filenameAttribute = e->Attribute("filename");
         std::string idAttribute = e->Attribute("ID");

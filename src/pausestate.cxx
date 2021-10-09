@@ -21,7 +21,7 @@ void PauseState::s_resumePlay()
 
 void PauseState::update()
 {
-    for(int i = 0; i < m_gameObjects.size();i++)
+    for (int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->update();
     }
@@ -29,7 +29,7 @@ void PauseState::update()
 
 void PauseState::render()
 {
-    for(int i = 0; i < m_gameObjects.size();i++)
+    for (int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->draw();
     }
@@ -53,13 +53,13 @@ bool PauseState::onExit()
 {
     std::cout << "exiting PauseState\n";
 
-    for (int i = 0; i < m_gameObjects.size();i++)
+    for (int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
 
-    for (int i = 0 ; i < m_textureIDList.size(); i++)
+    for (int i = 0; i < m_textureIDList.size(); i++)
     {
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
     }
@@ -68,13 +68,13 @@ bool PauseState::onExit()
     return true;
 }
 
-void PauseState::setCallbacks(const std::vector<Callback>& callbacks)
+void PauseState::setCallbacks(const std::vector<Callback> &callbacks)
 {
     for (int i = 0; i < m_gameObjects.size(); i++)
     {
-        if (dynamic_cast<MenuButton*>(m_gameObjects[i]))
+        if (dynamic_cast<MenuButton *>(m_gameObjects[i]))
         {
-            MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+            MenuButton *pButton = dynamic_cast<MenuButton *>(m_gameObjects[i]);
             pButton->setCallback(callbacks[pButton->getCallbackID()]);
         }
     }

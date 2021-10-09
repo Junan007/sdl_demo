@@ -5,10 +5,9 @@
 
 Player::Player()
 {
-    
 }
 
-void Player::load(const LoaderParams* pParams)
+void Player::load(const LoaderParams *pParams)
 {
     SDLGameObject::load(pParams);
 }
@@ -25,7 +24,7 @@ void Player::update()
 
     handleInput();
 
-    m_currentFrame = 0;//int(((SDL_GetTicks() / 100) % 6));
+    m_currentFrame = 0; //int(((SDL_GetTicks() / 100) % 6));
     SDLGameObject::update();
 }
 
@@ -92,7 +91,7 @@ void Player::handleInput()
         m_velocity.setY(-2);
     }*/
 
-    Vector2D* target = TheInputHandler::Instance()->getMousePosition();
+    Vector2D *target = TheInputHandler::Instance()->getMousePosition();
     m_velocity = *target - m_position;
     m_velocity /= 50;
 }

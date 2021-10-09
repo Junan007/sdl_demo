@@ -26,21 +26,23 @@ public:
     void update();
     void render();
 
-    std::vector<Tileset>* getTilesets()
+    std::vector<Tileset> *getTilesets()
     {
         return &m_tilesets;
     }
 
-    std::vector<Layer*>* getLayers()
+    std::vector<Layer *> *getLayers()
     {
         return &m_layers;
     }
+
 private:
-    friend class LevelParser;   // 仅LevelParser类能创建Level对象。
-    Level() {};
+    friend class LevelParser; // 仅LevelParser类能创建Level对象。
+    Level(){};
+
 private:
     std::vector<Tileset> m_tilesets;
-    std::vector<Layer*> m_layers;
+    std::vector<Layer *> m_layers;
 };
 
 #endif
